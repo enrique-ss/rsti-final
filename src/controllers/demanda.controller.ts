@@ -8,3 +8,18 @@ export const listarDemandas = async (req: any, res: any) => {
     return res.json(demanda);
 };
 
+export const criarDemandas = async (req: any, res: any) => {
+    const { descricao, tipo_servico_id, cliente_id, orcamento, data_solicitacao, prazo, prioridade, status_servico, data_entrega } = req.body;
+    const demanda = await db("demands").insert({
+        descricao, 
+        tipo_servico_id, 
+        cliente_id, 
+        orcamento, 
+        data_solicitacao, 
+        prazo, 
+        prioridade, 
+        status_servico, 
+        data_entrega
+    });
+    return res.json(demanda);
+};
