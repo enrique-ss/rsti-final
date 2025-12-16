@@ -22,11 +22,8 @@
             <a href="#" class="nav-link" data-target="config">⚙️ <span>Config</span></a>
         </nav>
         <div class="user-profile">
-            <div class="avatar">AD</div>
-            <div class="info">
-                <strong>Admin</strong>
-                <small>Online</small>
-            </div>
+            <div class="avatar">A</div>
+            <div class="info"><strong>Admin</strong></div>
         </div>
     </aside>
 
@@ -34,7 +31,7 @@
         <header>
             <div class="header-left">
                 <button id="toggleSidebar" class="btn-toggle">☰</button>
-                <h1 id="page-title" class="logo">Visão Geral</h1>
+                <h1 id="page-title">Visão Geral</h1>
             </div>
             <div class="actions">
                 <button id="theme">🌙</button>
@@ -77,9 +74,7 @@
                 </div>
 
                 <div class="card col-3">
-                    <div class="card-head">
-                        <h3>Demandas Ativas</h3>
-                    </div>
+                    <div class="card-head"><h3>Demandas Ativas</h3></div>
                     <div id="bars" class="bars"></div>
                 </div>
 
@@ -158,7 +153,6 @@
                 <p style="margin-top:10px;color:var(--text-muted)">Preferências de usuário, notificações, etc.</p>
             </div>
         </section>
-
     </main>
 
     <!-- MODAL NOVA DEMANDA -->
@@ -173,13 +167,13 @@
             <form id="formDemand" class="modal-body">
                 <div class="form-group">
                     <label for="titulo">Título da Demanda</label>
-                    <input type="text" id="titulo" name="titulo" placeholder="Ex: Criação de Post Instagram" required>
+                    <input type="text" id="titulo" placeholder="Ex: Criação de Post Instagram" required>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="tipo">Tipo de Serviço</label>
-                        <select id="tipo" name="tipo" required>
+                        <select id="tipo" required>
                             <option value="">Selecione...</option>
                             <option value="social">📱 Social Media</option>
                             <option value="design">🎨 Design</option>
@@ -191,7 +185,7 @@
 
                     <div class="form-group">
                         <label for="cliente">Cliente</label>
-                        <select id="cliente" name="cliente" required>
+                        <select id="cliente" required>
                             <option value="">Selecione...</option>
                             <option value="empresa-a">Empresa A</option>
                             <option value="empresa-b">Empresa B</option>
@@ -203,18 +197,18 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="orcamento">Orçamento (R$)</label>
-                        <input type="number" id="orcamento" name="orcamento" placeholder="0,00" step="0.01" min="0">
+                        <input type="number" id="orcamento" placeholder="0,00" step="0.01" min="0">
                     </div>
 
                     <div class="form-group">
                         <label for="dataEntrega">Data de Entrega</label>
-                        <input type="date" id="dataEntrega" name="dataEntrega" required>
+                        <input type="date" id="dataEntrega" required>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="descricao">Descrição</label>
-                    <textarea id="descricao" name="descricao" rows="4" placeholder="Descreva os detalhes da demanda..."></textarea>
+                    <textarea id="descricao" rows="4" placeholder="Descreva os detalhes da demanda..."></textarea>
                 </div>
 
                 <div class="modal-footer">
