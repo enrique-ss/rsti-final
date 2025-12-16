@@ -67,6 +67,7 @@ button { cursor: pointer; border: none; border-radius: 8px; font-weight: 600; tr
 .trend.up { background: rgba(16, 185, 129, 0.2); color: var(--success); }
 .trend.down { background: rgba(244, 63, 94, 0.2); color: var(--danger); }
 .trend.neutral { background: var(--border); color: var(--muted); }
+#ativos {color : var(--success); }
 
 /* Barras */
 .bars { display: flex; align-items: flex-end; justify-content: space-between; height: 140px; gap: 10px; }
