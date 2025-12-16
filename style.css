@@ -575,8 +575,8 @@ path:hover {
 
 /* --- RESPONSIVIDADE --- */
 
-/* Tablet (1024px) */
-@media(max-width: 1024px) {
+/* Tablet (1200px) */
+@media(max-width: 1200px) {
     .grid { grid-template-columns: repeat(2, 1fr); }
     .col-3, .col-2 { grid-column: span 1; }
 }
