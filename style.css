@@ -425,7 +425,9 @@ path:hover {
     display: block;
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--text-main);
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     margin-bottom: 10px;
     letter-spacing: 0.3px;
 }
@@ -575,7 +577,7 @@ path:hover {
 
 /* --- RESPONSIVIDADE --- */
 
-/* Tablet (1200px) */
+/* Tablet (1024px) */
 @media(max-width: 1200px) {
     .grid { grid-template-columns: repeat(2, 1fr); }
     .col-3, .col-2 { grid-column: span 1; }
