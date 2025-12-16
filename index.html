@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dash Compacto</title>
+    <!-- Fonte Inter para visual limpo -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="fade-in">
+        <div class="logo">⚡ CRM<span style="color:var(--primary)">Lite</span></div>
+        <nav>
+            <a href="#" class="active">📊 <span>Dash</span></a>
+            <a href="#">👥 <span>Clientes</span></a>
+            <a href="#">🔥 <span>Demandas</span></a>
+            <a href="#">📦 <span>Entregas</span></a>
+            <a href="#">⚙️ <span>Config</span></a>
+        </nav>
+        <div class="user-profile">
+            <div class="avatar">AD</div>
+            <div class="info">
+                <strong>Admin</strong>
+                <small>Online</small>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main>
+        <header class="fade-down">
+            <h1>Visão Geral</h1>
+            <div class="actions">
+                <button id="themeToggle" title="Mudar Tema">🌙</button>
+                <button class="btn-new">＋ Nova</button>
+            </div>
+        </header>
+
+        <div class="grid fade-up">
+            
+            <!-- MÉTRICAS -->
+            <div class="card metric">
+                <div>
+                    <h3>Ativos</h3>
+                    <div class="val">12</div>
+                </div>
+                <div class="trend up">↗ 12%</div>
+            </div>
+            <div class="card metric">
+                <div>
+                    <h3>Abertas</h3>
+                    <div class="val">8</div>
+                </div>
+                <div class="trend neutral">➡ 0%</div>
+            </div>
+            <div class="card metric">
+                <div>
+                    <h3>Atrasadas</h3>
+                    <div class="val text-danger">3</div>
+                </div>
+                <div class="trend down">↘ 2</div>
+            </div>
+
+            <!-- LINHA PRINCIPAL: BARRAS + ROSCA -->
+            <div class="card col-2">
+                <div class="card-head">
+                    <h3>Demandas por Serviço</h3>
+                    <span class="more">⋮</span>
+                </div>
+                <div id="barChart" class="chart-container bars"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-head"><h3>Status Geral</h3></div>
+                <div class="donut-wrapper">
+                    <div id="donutChart" class="chart-container donut"></div>
+                    <div id="donutLegend" class="legend"></div>
+                </div>
+            </div>
+
+            <!-- LINHA INFERIOR: LISTAS -->
+            <div class="card col-2">
+                <div class="card-head"><h3>Próximas Entregas</h3></div>
+                <div class="list">
+                    <div class="item">
+                        <div class="icon purple">IG</div>
+                        <div class="desc">
+                            <b>Instagram Post</b>
+                            <small>31/Abr • Social</small>
+                        </div>
+                        <div class="dot warn"></div>
+                    </div>
+                    <div class="item">
+                        <div class="icon blue">BN</div>
+                        <div class="desc">
+                            <b>Banner Site</b>
+                            <small>02/Jun • Design</small>
+                        </div>
+                        <div class="dot info"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-head"><h3 class="text-danger">Atenção</h3></div>
+                <div class="list">
+                    <div class="item">
+                        <div class="desc">
+                            <b>Natal Campaign</b>
+                            <small class="text-danger">Atrasada há 5 dias</small>
+                        </div>
+                        <span class="badge">URGENTE</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
