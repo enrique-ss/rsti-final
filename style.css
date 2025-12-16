@@ -67,7 +67,9 @@ button { cursor: pointer; border: none; border-radius: 8px; font-weight: 600; tr
 .trend.up { background: rgba(16, 185, 129, 0.2); color: var(--success); }
 .trend.down { background: rgba(244, 63, 94, 0.2); color: var(--danger); }
 .trend.neutral { background: var(--border); color: var(--muted); }
-#ativos {color : var(--success); }
+.val.ativo { color: var(--success); }
+.val.atrasado { color: var(--danger); }
+.val.neutro { color: var(--muted); }
 
 /* Barras */
 .bars { display: flex; align-items: flex-end; justify-content: space-between; height: 140px; gap: 10px; }
@@ -97,10 +99,13 @@ path:hover { transform: scale(1.03); }
 .desc { flex: 1; display: flex; flex-direction: column; }
 .desc b { font-size: 0.8rem; }
 .desc small { font-size: 0.65rem; color: var(--muted); }
-.dot.warn { background: var(--warn); }
-.dot.info { background: var(--c3); }
-.badge { background: rgba(244, 63, 94, 0.2); color: var(--danger); padding: 3px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: bold; }
-.danger { color: var(--danger); }
+
+/* Badges */
+.badge { display: inline-block; }
+.badge.success { background: rgba(16, 185, 129, 0.2); color: var(--success); padding: 3px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: bold; }
+.badge.warning { background: rgba(251, 191, 36, 0.2); color: var(--warn); padding: 3px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: bold; }
+.badge.danger { background: rgba(244, 63, 94, 0.2); color: var(--danger); padding: 3px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: bold; }
+.badger.neutral { background: rgba(255, 255, 255, 0.2); color: var(--muted); padding: 3px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: bold; }
 
 /* Responsivo */
 @media(max-width: 840px) {
