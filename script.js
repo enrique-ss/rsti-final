@@ -103,42 +103,78 @@ bars.forEach(d => {
     barEl.appendChild(g);
 });
 
-// Donut chart
+// --- DONUT CHART (Versão Transparente "True Ring") ---
 const donutEl = document.getElementById('donut');
 const legEl = document.getElementById('legend');
-const w = 100, h = 100, r = 50, hole = 35;
+
+// Configurações de Tamanho
+const w = 140, h = 140; 
+const radius = 65;      // Raio externo
+const holeRadius = 45;  // Raio interno (buraco)
 const ns = 'http://www.w3.org/2000/svg';
+
 const svg = document.createElementNS(ns, 'svg');
 svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+
 const total = donut.reduce((a, b) => a + b.v, 0);
-let ang = 0;
+let currentAngle = 0;
 
 donut.forEach(d => {
-    const perc = d.v / total;
-    const rad = perc * 2 * Math.PI;
-    const x1 = Math.cos(ang) * r;
-    const y1 = Math.sin(ang) * r;
-    const x2 = Math.cos(ang + rad) * r;
-    const y2 = Math.sin(ang + rad) * r;
-    const big = perc > 0.5 ? 1 : 0;
+    const fraction = d.v / total;
+    const angle = fraction * 2 * Math.PI; // Ângulo em radianos
+    
+    // Calcular coordenadas
+    // Precisamos de 4 pontos: Inicio Externo, Fim Externo, Fim Interno, Inicio Interno
+    
+    // Pontos Externos
+    const x1_out = Math.cos(currentAngle) * radius;
+    const y1_out = Math.sin(currentAngle) * radius;
+    const x2_out = Math.cos(currentAngle + angle) * radius;
+    const y2_out = Math.sin(currentAngle + angle) * radius;
+    
+    // Pontos Internos
+    const x1_in = Math.cos(currentAngle) * holeRadius;
+    const y1_in = Math.sin(currentAngle) * holeRadius;
+    const x2_in = Math.cos(currentAngle + angle) * holeRadius;
+    const y2_in = Math.sin(currentAngle + angle) * holeRadius;
+
+    // Flag para arcos maiores que 180 graus
+    const big = fraction > 0.5 ? 1 : 0;
+
+    // Desenhar o caminho (Path) do anel
+    // M (Move p/ inicio externo) -> A (Arco externo) -> L (Linha p/ fim interno) -> A (Arco interno invertido) -> Z (Fecha)
+    const pathCmd = `
+        M ${x1_out} ${y1_out}
+        A ${radius} ${radius} 0 ${big} 1 ${x2_out} ${y2_out}
+        L ${x2_in} ${y2_in}
+        A ${holeRadius} ${holeRadius} 0 ${big} 0 ${x1_in} ${y1_in}
+        Z
+    `;
+
     const path = document.createElementNS(ns, 'path');
-    path.setAttribute('d', `M0 0 L${x1} ${y1} A${r} ${r} 0 ${big} 1 ${x2} ${y2} Z`);
+    path.setAttribute('d', pathCmd);
     path.setAttribute('fill', d.c);
+    
+    // Tooltip nativo
     const title = document.createElementNS(ns, 'title');
     title.textContent = `${d.l}: ${d.v}`;
     path.appendChild(title);
+
     const g = document.createElementNS(ns, 'g');
-    g.setAttribute('transform', `translate(${w/2},${h/2})`);
+    g.setAttribute('transform', `translate(${w/2},${h/2})`); // Centraliza no SVG
     g.appendChild(path);
     svg.appendChild(g);
-    ang += rad;
-    legEl.innerHTML += `<div class="leg-item"><span><span class="dot" style="background:${d.c}"></span>${d.l}</span><b>${d.v}</b></div>`;
+
+    currentAngle += angle;
+
+    // Renderizar Legenda
+    legEl.innerHTML += `
+        <div class="leg-item">
+            <span><span class="dot" style="background:${d.c}"></span>${d.l}</span>
+            <b>${d.v}</b>
+        </div>`;
 });
 
-const c = document.createElementNS(ns, 'circle');
-c.setAttribute('cx', w/2);
-c.setAttribute('cy', h/2);
-c.setAttribute('r', hole);
-c.setAttribute('fill', 'var(--card)');
-svg.appendChild(c);
+// Nota: Removemos a criação do <circle> central para deixar o fundo transparente
+donutEl.innerHTML = ''; // Limpa conteúdo anterior se houver
 donutEl.appendChild(svg);

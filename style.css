@@ -233,22 +233,41 @@ body.light .metric .val {
 }
 .lbl { margin-top: 12px; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 0.5px; }
 
-/* Donut */
-.donut-wrap { display: flex; align-items: center; gap: 24px; height: 200px; justify-content: center; z-index: 1; }
-#donut { width: 140px; height: 140px; flex-shrink: 0; position: relative; }
-/* Efeito de brilho atras do donut */
-#donut::after {
-    content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 100%; height: 100%; background: var(--primary); opacity: 0.15; filter: blur(30px); border-radius: 50%; z-index: -1;
+/* --- DONUT CHART ATUALIZADO --- */
+.donut-wrap { 
+    display: flex; align-items: center; gap: 24px; height: 200px; justify-content: center; z-index: 1; 
 }
+#donut { 
+    width: 140px; height: 140px; flex-shrink: 0; position: relative; 
+}
+
+/* Opcional: Um brilho sutil atrás do gráfico para destacar o vidro */
+#donut::before {
+    content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 120%; height: 120%; 
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+    z-index: -1; pointer-events: none;
+}
+
 svg { width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
-path { cursor: pointer; transition: 0.3s; stroke: var(--bg-color); stroke-width: 4px; }
-path:hover { transform: scale(1.1); filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); stroke-width: 0; }
+
+path { 
+    cursor: pointer; 
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+    stroke: none; /* REMOVE A BORDA PRETA ENTRE FATIAS */
+}
+
+/* Efeito Hover: Aumenta e adiciona brilho */
+path:hover { 
+    transform: scale(1.08); 
+    filter: drop-shadow(0 0 8px rgba(255,255,255,0.4)); 
+    z-index: 10;
+}
+
 .legend { display: flex; flex-direction: column; gap: 10px; width: 100%; }
 .leg-item { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); padding: 4px 0; border-bottom: 1px solid var(--glass-border); }
 .leg-item b { color: var(--text-main); }
 .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 10px; box-shadow: 0 0 8px currentColor; }
-
 /* --- LISTS --- */
 .list { display: flex; flex-direction: column; gap: 16px; z-index: 1; }
 .item { 
