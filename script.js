@@ -1,6 +1,6 @@
 // Data
 const bars = [
-    { l: 'Social', v: 14 }, 
+    { l: 'Social', v: 13 }, 
     { l: 'Design', v: 9 }, 
     { l: 'Copy', v: 5 }, 
     { l: 'Video', v: 3 }, 
@@ -8,7 +8,7 @@ const bars = [
 ];
 
 const donut = [
-    { l: 'Andamento', v: 12, c: 'var(--primary)' },
+    { l: 'Andamento', v: 1, c: 'var(--primary)' },
     { l: 'Atrasados', v: 3, c: 'var(--warn)' },
     { l: 'Concluídos', v: 8, c: 'var(--success)' },
     { l: 'Cancelados', v: 1, c: 'var(--danger)' }
