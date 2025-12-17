@@ -36,4 +36,9 @@ CREATE TABLE demandas (
     FOREIGN KEY (cliente_id) REFERENCES usuario(id)
 );
 
+INSERT INTO usuario (nome, email, senha) VALUES 
+('test1', 'test1@gmail.com', 123456),
+('test2', 'test2@gmail.com', 123456),
+('test3', 'test3@gmail.com', 123456),
+
 INSERT INTO tipo_servico (nome) VALUES ('Social Media'),('Design Gráfico'),('Copywriting'),('Produção de Conteúdo'),('Relatórios e Estratégia');
