@@ -35,3 +35,5 @@ CREATE TABLE demandas (
     FOREIGN KEY (tipo_servico_id) REFERENCES tipo_servico(id),
     FOREIGN KEY (cliente_id) REFERENCES usuario(id)
 );
+
+INSERT INTO tipo_servico (nome) VALUES ('Designer'),('Desenvolvedor'),('Copywriter'),('Gestor'),('Analista');

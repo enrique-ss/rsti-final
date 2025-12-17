@@ -2,6 +2,7 @@
 import { Request, Response } from 'express';
 import db from '../database/connection';
 
+
 // Fixed: Using any for req and res parameters to resolve "Property does not exist" errors in this environment
 export const index = async (req: any, res: any) => {
   try {
