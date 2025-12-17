@@ -7,6 +7,7 @@ const PERMISSIONS = {
         tabs: ['dash', 'clientes', 'demandas', 'entregas', 'config'],
         canCreateDemand: true,
         canEditSettings: true,
+        canManageUsers: true, // Nova permissão
         defaultTab: 'dash'
     },
     // Colaborador foca em execução
@@ -14,13 +15,15 @@ const PERMISSIONS = {
         tabs: ['dash', 'demandas', 'entregas', 'config'],
         canCreateDemand: true,
         canEditSettings: false,
+        canManageUsers: false, // Não pode gerenciar usuários
         defaultTab: 'dash'
     },
-    // Cliente só vê entregas e demandas dele (simplificado para entregas aqui)
+    // Cliente só vê entregas e demandas dele
     cliente: {
-        tabs: ['entregas', 'config'], // Pode ver entregas e configurar perfil próprio
-        canCreateDemand: false, // Cliente solicita por outro canal ou botão específico
+        tabs: ['entregas', 'config'],
+        canCreateDemand: false,
         canEditSettings: false,
+        canManageUsers: false, // Não pode gerenciar usuários
         defaultTab: 'entregas'
     }
 };
@@ -92,8 +95,17 @@ function applyPermissions(user) {
         }
     }
 
-    // 3. Redirecionar se estiver em aba proibida
-    // Verifica qual aba está "active" no HTML
+    // 3. Controlar Seção de Gerenciamento de Usuários (ADMIN ONLY)
+    const adminSection = document.getElementById('adminSection');
+    if (adminSection) {
+        if (rules.canManageUsers) {
+            adminSection.style.display = 'block';
+        } else {
+            adminSection.style.display = 'none';
+        }
+    }
+
+    // 4. Redirecionar se estiver em aba proibida
     const activeTabEl = document.querySelector('.tab-content.active');
     const activeTabId = activeTabEl ? activeTabEl.id : 'dash';
 
@@ -102,12 +114,6 @@ function applyPermissions(user) {
         if (firstAllowedTab) {
             firstAllowedTab.click();
         }
-    }
-    
-    // Ajustar Título se necessário para a aba padrão do usuário
-    if (activeTabId === 'dash' && !rules.tabs.includes('dash')) {
-         // Se carregou no dash mas não pode, a simulação de clique acima resolve,
-         // mas visualmente pode piscar. O ideal seria renderizar já certo.
     }
 }
 
@@ -276,7 +282,7 @@ if(themeBtn) {
 function initCharts() {
     // Bar chart
     const barEl = document.getElementById('bars');
-    if (barEl && barEl.innerHTML === '') { // Só desenha se vazio
+    if (barEl && barEl.innerHTML === '') {
         const max = Math.max(...bars.map(d => d.v));
 
         bars.forEach(d => {
@@ -299,7 +305,7 @@ function initCharts() {
     const donutEl = document.getElementById('donut');
     const legEl = document.getElementById('legend');
 
-    if (donutEl && legEl && donutEl.innerHTML === '') { // Só desenha se vazio
+    if (donutEl && legEl && donutEl.innerHTML === '') {
         const w = 140, h = 140; 
         const radius = 65;
         const holeRadius = 45;
