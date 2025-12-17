@@ -23,28 +23,32 @@ CREATE TABLE tipo_servico (
 
 CREATE TABLE demandas (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    descricao TEXT NOT NULL,
+    nome VARCHAR(45) NOT NULL, 
     tipo_servico_id INT NOT NULL,
+    descricao TEXT NOT NULL,
     cliente_id INT NOT NULL,
     orcamento DECIMAL(8,2) NOT NULL,
-    data_solicitacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     prazo DATE NOT NULL,
-    prioridade VARCHAR(20) NOT NULL, 
-    status_servico ENUM('Em andamento', 'Em revisão', 'Finalizado') NOT NULL DEFAULT 'Em andamento', 
-    data_entrega DATE NOT NULL,
+    data_entrega
+    status_servico ENUM('Em andamento', 'Atrasado', 'Concluído', 'Cancelado') NOT NULL DEFAULT 'Em andamento', 
     
+    FOREIGN KEY (data_entrega) REFERENCES entregas(id)
     FOREIGN KEY (tipo_servico_id) REFERENCES tipo_servico(id),
     FOREIGN KEY (cliente_id) REFERENCES usuario(id)
 );
 
 
-CREATE TABLE relatorio(
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-    demanda_id INT NOT NULL UNIQUE,            
-    data_criacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    conteudo TEXT,
-    usuario_responsavel_id INT,
-
+CREATE TABLE entregas (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(45) NOT NULL,
+    tipo_servico_id INT NOT NULL,
+    descricao TEXT NPT NULL,
+    demanda_id INT NOT NULL UNIQUE, 
+    data_entrega DATE NOT NULL,
+    
+    FOREIGN KEY (orcamento) REFERENCES demandas(id)
+    FOREIGN KEY (cliente_id) REFERENCES cliente(id)
+    FOREIGN KEY (tipo_servico_id) REFERENCES tipo_servico(id)
     FOREIGN KEY (demanda_id) REFERENCES demandas(id),
-    FOREIGN KEY (usuario_responsavel_id) REFERENCES usuario(id)
+    
 );
