@@ -8,19 +8,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <aside id="sidebar">
         <div class="sidebar-header">
             <div class="logo">RSTI<span>Final</span></div>
             <button id="closeSidebar" class="btn-close">✕</button>
         </div>
-        <nav>
-            <a href="#" class="nav-link active" data-target="dash">📊 <span>Dash</span></a>
-            <a href="#" class="nav-link" data-target="clientes">👥 <span>Clientes</span></a>
-            <a href="#" class="nav-link" data-target="demandas">🔥 <span>Demandas</span></a>
-            <a href="#" class="nav-link" data-target="entregas">📦 <span>Entregas</span></a>
-            <a href="#" class="nav-link" data-target="config">⚙️ <span>Config</span></a>
-        </nav>
+        <nav id="mainNav"></nav>
         <div class="user-profile">
             <div>
                 <div class="avatar">U</div>
@@ -28,7 +21,6 @@
                     <strong id="userName">Usuário</strong>
                 </div>
             </div>
-            <!-- Logout button will be appended by script.js -->
         </div>
     </aside>
 
@@ -36,7 +28,7 @@
         <header>
             <div class="header-left">
                 <button id="toggleSidebar" class="btn-toggle">☰</button>
-                <h1 id="page-title">Visão Geral</h1>
+                <h1 id="pageTitle">Visão Geral</h1>
             </div>
             <div class="actions">
                 <button id="theme">🌙</button>
@@ -44,6 +36,7 @@
             </div>
         </header>
 
+        <!-- Dashboard -->
         <section id="dash" class="tab-content active">
             <div class="grid">
                 <div class="card metric">
@@ -53,7 +46,6 @@
                     </div>
                     <div class="trend up">↗ 12%</div>
                 </div>
-
                 <div class="card metric">
                     <div>
                         <h3>Atrasados</h3>
@@ -61,7 +53,6 @@
                     </div>
                     <div class="trend down">↘ 7%</div>
                 </div>
-
                 <div class="card metric">
                     <div>
                         <h3>Concluídos</h3>
@@ -69,7 +60,6 @@
                     </div>
                     <div class="trend up">↗ 24%</div>
                 </div>
-
                 <div class="card metric">
                     <div>
                         <h3>Cancelados</h3>
@@ -77,12 +67,10 @@
                     </div>
                     <div class="trend neutral">➡ 0%</div>
                 </div>
-
                 <div class="card col-3">
                     <div class="card-head"><h3>Demandas Ativas</h3></div>
                     <div id="bars" class="bars"></div>
                 </div>
-
                 <div class="card col-2">
                     <div class="card-head"><h3>Status Geral</h3></div>
                     <div class="donut-wrap">
@@ -90,316 +78,72 @@
                         <div id="legend" class="legend"></div>
                     </div>
                 </div>
-
                 <div class="card col-3">
                     <div class="card-head"><h3>Próximas Entregas</h3></div>
-                    <div class="list">
-                        <div class="item">
-                            <div class="icon purple">IG</div>
-                            <div class="desc">
-                                <b>Instagram Post</b>
-                                <small>31/04/26 • Social</small>
-                            </div>
-                            <div class="badge success">ATIVO</div>
-                        </div>
-                        <div class="item">
-                            <div class="icon blue">BN</div>
-                            <div class="desc">
-                                <b>Banner Site</b>
-                                <small>02/06/26 • Design</small>
-                            </div>
-                            <div class="badge success">ATIVO</div>
-                        </div>
-                    </div>
+                    <div class="list" id="nextDeliveries"></div>
                 </div>
-
                 <div class="card col-2">
                     <div class="card-head"><h3 class="danger">Atenção</h3></div>
-                    <div class="list">
-                        <div class="item">
-                            <div class="desc">
-                                <b>Natal Campaign</b>
-                                <small class="danger">Atrasada há 5 dias</small>
-                            </div>
-                            <span class="badge danger">URGENTE</span>
-                        </div>
-                    </div>
+                    <div class="list" id="alertsList"></div>
                 </div>
             </div>
         </section>
 
+        <!-- Clientes -->
         <section id="clientes" class="tab-content">
             <div class="card">
-                <div class="list">
-                    <div class="item"><div class="desc"><b>Pet Shop</b><small>Email: 9tN1o@example.com<br>Telefone: (99) 99999-9999</small></div><span class="badge success">ATIVO</span></div>
-                    <div class="item"><div class="desc"><b>Academia</b><small>Email: 9tN1o@example.com<br>Telefone: (99) 99999-9999</small></div><span class="badge success">ATIVO</span></div>
-                    <div class="item"><div class="desc"><b>Loja de Roupas</b><small>Email: 9tN1o@example.com<br>Telefone: (99) 99999-9999</small></div><span class="badge danger">INATIVO</span></div>
-                </div>
+                <div class="list" id="clientsList"></div>
             </div>
         </section>
 
+        <!-- Demandas -->
         <section id="demandas" class="tab-content">
             <div class="card">
-                <div class="list">
-                    <div class="item">
-                        <div class="desc">
-                            <b>Instagram Post</b>
-                            <small>Tipo: Social Media<br>Descrição: Criação de post para feed promocional<br>Cliente: Pet Shop<br>Orçamento: R$ 500,00<br>Entrega: 31/04/26</small>
-                        </div>
-                        <span class="badge success">EM ANDAMENTO</span>
-                    </div>
-                    <div class="item">
-                        <div class="desc">
-                            <b>Banner Site</b>
-                            <small>Tipo: Design<br>Descrição: Banner para página principal do site<br>Cliente: Academia<br>Orçamento: R$ 800,00<br>Entrega: 02/06/26</small>
-                        </div>
-                        <span class="badge success">EM ANDAMENTO</span>
-                    </div>
-                    <div class="item">
-                        <div class="desc">
-                            <b>Campanha Natal</b>
-                            <small>Tipo: Copywriting<br>Descrição: Textos para campanha de fim de ano<br>Cliente: Loja de Roupas<br>Orçamento: R$ 1.200,00<br>Entrega: 10/12/25</small>
-                        </div>
-                        <span class="badge danger">ATRASADO</span>
-                    </div>
-                </div>
+                <div class="list" id="demandsList"></div>
             </div>
         </section>
 
+        <!-- Entregas -->
         <section id="entregas" class="tab-content">
             <div class="card">
-                <div class="list">
-                    <div class="item">
-                        <div class="desc">
-                            <b>Logo Redesign</b>
-                            <small>Tipo: Design<br>Descrição: Modernização da identidade visual<br>Cliente: Pet Shop<br>Orçamento: R$ 1.500,00<br>Entregue em: 15/11/25</small>
-                        </div>
-                        <span class="badge success">CONCLUÍDO</span>
-                    </div>
-                    <div class="item">
-                        <div class="desc">
-                            <b>Vídeo Promocional</b>
-                            <small>Tipo: Vídeo<br>Descrição: Vídeo institucional para redes sociais<br>Cliente: Academia<br>Orçamento: R$ 2.000,00<br>Entregue em: 20/10/25</small>
-                        </div>
-                        <span class="badge success">CONCLUÍDO</span>
-                    </div>
-                    <div class="item">
-                        <div class="desc">
-                            <b>E-commerce</b>
-                            <small>Tipo: SEO<br>Descrição: SEO completo para uma loja virtual<br>Cliente: Loja de Roupas<br>Orçamento: R$ 5.000,00<br>Cancelado em: 05/12/25</small>
-                        </div>
-                        <span class="badge danger">CANCELADO</span>
-                    </div>
-                    <div class="item">
-                        <div class="desc">
-                            <b>Campanha Black Friday</b>
-                            <small>Tipo: Social Media<br>Descrição: Kit completo de posts para Black Friday<br>Cliente: Pet Shop<br>Orçamento: R$ 800,00<br>Entregue em: 28/11/25</small>
-                        </div>
-                        <span class="badge success">CONCLUÍDO</span>
-                    </div>
-                </div>
+                <div class="list" id="deliveriesList"></div>
             </div>
         </section>
 
+        <!-- Configurações -->
         <section id="config" class="tab-content">
             <div class="grid config-grid">
-                <!-- Perfil do Usuário -->
                 <div class="card col-2">
                     <div class="card-head">
                         <h3>👤 Meu Perfil</h3>
                         <button class="btn-edit">Editar</button>
                     </div>
-                    <div class="config-section">
-                        <div class="config-item">
-                            <label>Nome Completo</label>
-                            <input type="text" value="João Silva" disabled class="config-input">
-                        </div>
-                        <div class="config-item">
-                            <label>Email</label>
-                            <input type="email" value="joao.silva@empresa.com" disabled class="config-input">
-                        </div>
-                        <div class="config-item">
-                            <label>Telefone</label>
-                            <input type="tel" value="(51) 99999-9999" disabled class="config-input">
-                        </div>
-                        <div class="config-item">
-                            <label>Cargo</label>
-                            <input type="text" value="Designer" disabled class="config-input">
-                        </div>
-                    </div>
+                    <div class="config-section" id="profileSection"></div>
                 </div>
-
-                <!-- Preferências -->
                 <div class="card col-2">
-                    <div class="card-head">
-                        <h3>⚙️ Preferências</h3>
-                    </div>
-                    <div class="config-section">
-                        <div class="config-item">
-                            <label>Idioma</label>
-                            <select class="config-input">
-                                <option value="pt-br">Português (Brasil)</option>
-                                <option value="en">English</option>
-                                <option value="es">Español</option>
-                            </select>
-                        </div>
-                        <div class="config-item">
-                            <label>Tema</label>
-                            <select class="config-input">
-                                <option value="dark">🌙 Escuro</option>
-                                <option value="light">☀️ Claro</option>
-                            </select>
-                        </div>
-                        <div class="config-item">
-                            <label>Notificações por Email</label>
-                            <div class="toggle-switch">
-                                <input type="checkbox" id="emailNotif" checked>
-                                <label for="emailNotif" class="toggle-label"></label>
-                            </div>
-                        </div>
-                        <div class="config-item">
-                            <label>Notificações Push</label>
-                            <div class="toggle-switch">
-                                <input type="checkbox" id="pushNotif" checked>
-                                <label for="pushNotif" class="toggle-label"></label>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="card-head"><h3>⚙️ Preferências</h3></div>
+                    <div class="config-section" id="preferencesSection"></div>
                 </div>
-
-                <!-- Segurança -->
                 <div class="card col-2">
-                    <div class="card-head">
-                        <h3>🔒 Segurança</h3>
-                    </div>
-                    <div class="config-section">
-                        <div class="config-item">
-                            <label>Alterar Senha</label>
-                            <button class="btn-action">Alterar Senha</button>
-                        </div>
-                        <div class="config-item">
-                            <label>Autenticação em Dois Fatores</label>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <div class="toggle-switch">
-                                    <input type="checkbox" id="2fa">
-                                    <label for="2fa" class="toggle-label"></label>
-                                </div>
-                                <span style="font-size: 0.8rem; color: var(--text-muted);">Desativado</span>
-                            </div>
-                        </div>
-                        <div class="config-item">
-                            <label>Última Sessão</label>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">17/12/2025 às 14:32</p>
-                        </div>
-                    </div>
+                    <div class="card-head"><h3>🔒 Segurança</h3></div>
+                    <div class="config-section" id="securitySection"></div>
                 </div>
-
-                <!-- Sobre o Sistema -->
                 <div class="card col-2">
-                    <div class="card-head">
-                        <h3>ℹ️ Sobre</h3>
-                    </div>
-                    <div class="config-section">
-                        <div class="config-item">
-                            <label>Versão do Sistema</label>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">v1.0.0 Beta</p>
-                        </div>
-                        <div class="config-item">
-                            <label>Última Atualização</label>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">15/12/2025</p>
-                        </div>
-                        <div class="config-item">
-                            <button class="btn-action">Termos de Uso</button>
-                        </div>
-                        <div class="config-item">
-                            <button class="btn-action">Política de Privacidade</button>
-                        </div>
-                    </div>
+                    <div class="card-head"><h3>ℹ️ Sobre</h3></div>
+                    <div class="config-section" id="aboutSection"></div>
                 </div>
-
-                <!-- ADMIN ONLY - Gerenciar Usuários -->
-<div class="card col-4" id="adminSection">
-    <div class="card-head">
-        <h3>👥 Gerenciar Usuários</h3>
-        <button class="btn-new-small">＋ Novo Usuário</button>
-    </div>
-    <div class="users-table">
-        <div class="table-header">
-            <div class="th">Nome</div>
-            <div class="th">Email</div>
-            <div class="th">Cargo</div>
-            <div class="th">Nível de Acesso</div>
-            <div class="th">Status</div>
-        </div>
-        <div class="table-row">
-            <div class="td"><strong>João Silva</strong></div>
-            <div class="td">joao.silva@empresa.com</div>
-            <div class="td">
-                <select class="cargo-select">
-                    <option value="designer" selected>Designer</option>
-                    <option value="desenvolvedor">Desenvolvedor</option>
-                    <option value="copywriter">Copywriter</option>
-                    <option value="gestor">Gestor</option>
-                    <option value="analista">Analista</option>
-                </select>
+                <div class="card col-4" id="adminSection">
+                    <div class="card-head">
+                        <h3>👥 Gerenciar Usuários</h3>
+                        <button class="btn-new-small">＋ Novo Usuário</button>
+                    </div>
+                    <div class="users-table" id="usersTable"></div>
+                </div>
             </div>
-            <div class="td">
-                <select class="access-select">
-                    <option value="user">Usuário</option>
-                    <option value="admin" selected>Admin</option>
-                    <option value="viewer">Cliente</option>
-                </select>
-            </div>
-            <div class="td"><span class="badge success">ATIVO</span></div>
-        </div>
-        <div class="table-row">
-            <div class="td"><strong>Maria Santos</strong></div>
-            <div class="td">maria.santos@empresa.com</div>
-            <div class="td">
-                <select class="cargo-select">
-                    <option value="designer">Designer</option>
-                    <option value="desenvolvedor" selected>Desenvolvedor</option>
-                    <option value="copywriter">Copywriter</option>
-                    <option value="gestor">Gestor</option>
-                    <option value="analista">Analista</option>
-                </select>
-            </div>
-            <div class="td">
-                <select class="access-select">
-                    <option value="user" selected>Usuário</option>
-                    <option value="admin">Admin</option>
-                    <option value="viewer">Cliente</option>
-                </select>
-            </div>
-            <div class="td"><span class="badge success">ATIVO</span></div>
-        </div>
-        <div class="table-row">
-            <div class="td"><strong>Pedro Oliveira</strong></div>
-            <div class="td">pedro.oliveira@empresa.com</div>
-            <div class="td">
-                <select class="cargo-select">
-                    <option value="designer">Designer</option>
-                    <option value="desenvolvedor">Desenvolvedor</option>
-                    <option value="copywriter" selected>Copywriter</option>
-                    <option value="gestor">Gestor</option>
-                    <option value="analista">Analista</option>
-                </select>
-            </div>
-            <div class="td">
-                <select class="access-select">
-                    <option value="user">Usuário</option>
-                    <option value="admin">Admin</option>
-                    <option value="viewer" selected>Cliente</option>
-                </select>
-            </div>
-            <div class="td"><span class="badge danger">INATIVO</span></div>
-        </div>
-    </div>
-</div>
         </section>
     </main>
 
-    <!-- MODAL NOVA DEMANDA -->
+    <!-- Modal Nova Demanda -->
     <div id="modalDemand" class="modal">
         <div class="modal-overlay"></div>
         <div class="modal-content">
@@ -407,13 +151,11 @@
                 <h2>Nova Demanda</h2>
                 <button class="modal-close" id="closeModal">✕</button>
             </div>
-            
             <form id="formDemand" class="modal-body">
                 <div class="form-group">
                     <label for="titulo">Título da Demanda</label>
                     <input type="text" id="titulo" name="titulo" placeholder="Ex: Criação de Post Instagram" required>
                 </div>
-
                 <div class="form-row">
                     <div class="form-group">
                         <label for="tipo">Tipo de Serviço</label>
@@ -426,7 +168,6 @@
                             <option value="seo">SEO</option>
                         </select>
                     </div>
-
                     <div class="form-group">
                         <label for="cliente">Cliente</label>
                         <select id="cliente" name="cliente" required>
@@ -437,24 +178,20 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="form-row">
                     <div class="form-group">
                         <label for="orcamento">Orçamento (R$)</label>
                         <input type="number" id="orcamento" name="orcamento" placeholder="0,00" step="0.01" min="0">
                     </div>
-
                     <div class="form-group">
                         <label for="dataEntrega">Data de Entrega</label>
                         <input type="date" id="dataEntrega" name="dataEntrega" required>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label for="descricao">Descrição</label>
                     <textarea id="descricao" name="descricao" rows="4" placeholder="Descreva os detalhes da demanda..."></textarea>
                 </div>
-
                 <div class="modal-footer">
                     <button type="button" class="btn-cancel" id="btnCancel">Cancelar</button>
                     <button type="submit" class="btn-submit">🚀 Criar Demanda</button>
