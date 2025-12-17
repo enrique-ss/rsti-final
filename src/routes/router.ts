@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { criarUsuario } from "../controllers/usuario.controller";
+import { criarUsuario, listarCliente } from "../controllers/usuario.controller";
 import { criarDemandas, listarDemandas } from "../controllers/demanda.controller";
 
 
@@ -7,6 +7,7 @@ export const router = Router();
 
 // usuario
 router.post('/criar-usuario', criarUsuario);
+router.get('/listar-clientes', listarCliente);
 
 // tipo_servico
 

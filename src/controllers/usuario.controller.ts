@@ -8,6 +8,6 @@ export const criarUsuario = async (req: any, res: any) => {
 
 
 export const listarCliente = async (req: any, res: any) => {
-    const cliente = await db('usuario').where('cliente');
-    return res.json;
+    const cliente = await db('usuario').where('nivel_acesso','cliente');
+    return res.json(cliente)
 };
