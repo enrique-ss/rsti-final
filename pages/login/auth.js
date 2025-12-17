@@ -93,12 +93,12 @@ if(loginForm) {
         // === MOCK USERS PARA TESTE DE NÍVEIS ===
         // Isso permite você testar sem criar contas manualmente
         if (!user) {
-            if (email === 'admin@rsti.com' && password === 'admin') {
-                user = { name: 'Enrique Admin', email: email, level: 'admin' };
-            } else if (email === 'colab@rsti.com' && password === '123456') {
-                user = { name: 'João Colaborador', email: email, level: 'colaborador' };
+            if (email === 'admin@rsti.com' && password === '123456') {
+                user = { name: 'Enrique', email: email, level: 'admin' };
+            } else if (email === 'colaborador@rsti.com' && password === '123456') {
+                user = { name: 'Alisson', email: email, level: 'colaborador' };
             } else if (email === 'cliente@rsti.com' && password === '123456') {
-                user = { name: 'Empresa Cliente', email: email, level: 'cliente' };
+                user = { name: 'Gabriel', email: email, level: 'cliente' };
             }
         }
 

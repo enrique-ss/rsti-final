@@ -11,7 +11,7 @@ const PERMISSIONS = {
     },
     // Colaborador foca em execução
     colaborador: {
-        tabs: ['dash', 'demandas', 'entregas'],
+        tabs: ['dash', 'demandas', 'entregas', 'config'],
         canCreateDemand: true,
         canEditSettings: false,
         defaultTab: 'dash'
