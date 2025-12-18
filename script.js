@@ -226,7 +226,7 @@ function initLogoutButton() {
 function forceLogout() {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('currentUser');
-    window.location.replace('../login/index.html');
+    window.location.replace('login/auth.html');
 }
 
 // ==================== SIDEBAR ====================

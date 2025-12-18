@@ -21,7 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
             const user = JSON.parse(currentUserRaw);
             // Verifica se o objeto usuário tem conteúdo válido antes de redirecionar
             if (user && user.email) {
-                window.location.href = '../principal/dashboard.html';
+                window.location.href = '../index.html';
                 return;
             }
         } catch (e) {
