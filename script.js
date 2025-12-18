@@ -5,11 +5,11 @@ const PERMS = {
 };
 
 const MENU = [
-    { id: 'dash', icon: '📊', label: 'Dash' },
+    { id: 'dash', icon: '📊', label: 'Dashboard' },
     { id: 'clientes', icon: '👥', label: 'Clientes' },
     { id: 'demandas', icon: '🔥', label: 'Demandas' },
     { id: 'entregas', icon: '📦', label: 'Entregas' },
-    { id: 'config', icon: '⚙️', label: 'Config' }
+    { id: 'config', icon: '⚙️', label: 'Configurações' }
 ];
 
 const DATA = {
@@ -121,14 +121,20 @@ function switchTab(id) {
     if (tab) tab.classList.add('active');
     
     const titles = {
-        'dash': 'Visão Geral',
+        'dash': 'Dashboard',              // ✅ MUDADO
         'clientes': 'Clientes',
         'demandas': 'Demandas',
         'entregas': 'Entregas',
-        'config': 'Configurações'
+        'config': 'Configurações'          // ✅ MUDADO
     };
     const pageTitle = document.getElementById('pageTitle');
-    if (pageTitle) pageTitle.textContent = titles[id] || 'Visão Geral';
+    if (pageTitle) pageTitle.textContent = titles[id] || 'Dashboard';
+    
+    // ✅ ADICIONAR ISSO: Esconde botão "+ Novo" quando estiver em Config
+    const btnNew = document.getElementById('btnNewDemand');
+    if (btnNew) {
+        btnNew.style.display = (id === 'config') ? 'none' : 'block';
+    }
     
     if (window.innerWidth <= 840) document.getElementById('sidebar').classList.add('hidden');
 }
@@ -224,14 +230,26 @@ function initCharts() {
         DATA.bars.forEach(d => {
             const g = document.createElement('div');
             g.className = 'bar-group';
+            
+            // ✅ ADICIONAR: Número acima da barra
+            const num = document.createElement('div');
+            num.className = 'bar-value';
+            num.textContent = d.v;
+            num.style.cssText = 'font-size:0.9rem; font-weight:800; color:var(--text); margin-bottom:8px; opacity:0; transition:0.3s;';
+            
             const b = document.createElement('div');
             b.className = 'bar';
             b.style.height = '0%';
-            setTimeout(() => b.style.height = (d.v / max * 100) + '%', 100);
+            setTimeout(() => {
+                b.style.height = (d.v / max * 100) + '%';
+                num.style.opacity = '1'; // ✅ Mostra o número com animação
+            }, 100);
+            
             const l = document.createElement('div');
             l.className = 'lbl';
             l.textContent = d.l;
-            g.append(b, l);
+            
+            g.append(num, b, l); // ✅ Adiciona número, barra e label
             bars.appendChild(g);
         });
     }
