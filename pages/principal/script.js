@@ -8,7 +8,7 @@ const PERMISSIONS = {
         defaultTab: 'dash'
     },
     colaborador: {
-        tabs: ['dash', 'demandas', 'entregas', 'config'],
+        tabs: ['dash', 'clientes', 'demandas', 'entregas', 'config'],
         canCreateDemand: true,
         canEditSettings: false,
         canManageUsers: false,
