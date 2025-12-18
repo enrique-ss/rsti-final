@@ -122,7 +122,7 @@
                 <div class="card col-4" id="adminSection">
                     <div class="card-head">
                         <h3>👥 Gerenciar Usuários</h3>
-                        <button class="btn-new-small">+ Novo Usuário</button>
+                        <button class="btn-new-small" id="btnNewUser">+ Novo Usuário</button>
                     </div>
                     <div class="users-table" id="usersTable"></div>
                 </div>
@@ -182,6 +182,40 @@
                 <div class="modal-footer">
                     <button type="button" class="btn-cancel" id="btnCancel">Cancelar</button>
                     <button type="submit" class="btn-submit">Criar Demanda</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Novo Usuário -->
+    <div id="modalUser" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Novo Usuário</h2>
+                <button class="modal-close" id="closeModalUser">✕</button>
+            </div>
+            <form id="formUser" class="modal-body">
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" id="userName" name="userName" placeholder="Ex: João Silva" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="userEmail" name="userEmail" placeholder="joao@empresa.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Cargo</label>
+                    <select id="userRole" name="userRole" required>
+                        <option value="">Selecione...</option>
+                        <option value="admin">Admin</option>
+                        <option value="colaborador">Colaborador</option>
+                        <option value="cliente">Cliente</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" id="btnCancelUser">Cancelar</button>
+                    <button type="submit" class="btn-submit">Criar Usuário</button>
                 </div>
             </form>
         </div>

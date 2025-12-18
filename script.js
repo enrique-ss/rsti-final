@@ -21,12 +21,12 @@ const DATA = {
         { l: 'Cancelados', v: 2, c: '#f43f5e' }
     ],
     clients: [
-        { name: 'Pet Paradise', email: 'contato@petparadise.com', phone: '(51) 98765-4321', active: true },
-        { name: 'FitLife Academia', email: 'admin@fitlife.com.br', phone: '(51) 99876-5432', active: true },
-        { name: 'Moda Bella', email: 'vendas@modabella.com', phone: '(51) 97654-3210', active: true },
-        { name: 'TechSolutions', email: 'info@techsolutions.com', phone: '(51) 96543-2109', active: true },
-        { name: 'Café Aroma', email: 'contato@cafearoma.com', phone: '(51) 95432-1098', active: false },
-        { name: 'Restaurante Sabor', email: 'gerencia@sabor.com.br', phone: '(51) 94321-0987', active: true }
+        { name: 'Pet Paradise', email: 'contato@petparadise.com', active: true },
+        { name: 'FitLife Academia', email: 'admin@fitlife.com.br', active: true },
+        { name: 'Moda Bella', email: 'vendas@modabella.com', active: true },
+        { name: 'TechSolutions', email: 'info@techsolutions.com', active: true },
+        { name: 'Café Aroma', email: 'contato@cafearoma.com', active: false },
+        { name: 'Restaurante Sabor', email: 'gerencia@sabor.com.br', active: true }
     ],
     demands: [
         { id: 1, title: 'Campanha Instagram', type: 'Social Media', desc: 'Posts para feed e stories promocionais', client: 'Pet Paradise', budget: 800, delivery: '25/12/25', status: 'EM ANDAMENTO' },
@@ -121,16 +121,15 @@ function switchTab(id) {
     if (tab) tab.classList.add('active');
     
     const titles = {
-        'dash': 'Dashboard',              // ✅ MUDADO
+        'dash': 'Dashboard',
         'clientes': 'Clientes',
         'demandas': 'Demandas',
         'entregas': 'Entregas',
-        'config': 'Configurações'          // ✅ MUDADO
+        'config': 'Configurações'
     };
     const pageTitle = document.getElementById('pageTitle');
     if (pageTitle) pageTitle.textContent = titles[id] || 'Dashboard';
     
-    // ✅ ADICIONAR ISSO: Esconde botão "+ Novo" quando estiver em Config
     const btnNew = document.getElementById('btnNewDemand');
     if (btnNew) {
         btnNew.style.display = (id === 'config') ? 'none' : 'block';
@@ -231,7 +230,6 @@ function initCharts() {
             const g = document.createElement('div');
             g.className = 'bar-group';
             
-            // ✅ ADICIONAR: Número acima da barra
             const num = document.createElement('div');
             num.className = 'bar-value';
             num.textContent = d.v;
@@ -242,14 +240,14 @@ function initCharts() {
             b.style.height = '0%';
             setTimeout(() => {
                 b.style.height = (d.v / max * 100) + '%';
-                num.style.opacity = '1'; // ✅ Mostra o número com animação
+                num.style.opacity = '1';
             }, 100);
             
             const l = document.createElement('div');
             l.className = 'lbl';
             l.textContent = d.l;
             
-            g.append(num, b, l); // ✅ Adiciona número, barra e label
+            g.append(num, b, l);
             bars.appendChild(g);
         });
     }
@@ -299,14 +297,14 @@ function render() {
             <div class="item">
                 <div class="desc">
                     <b>${c.name}</b>
-                    <small>Email: ${c.email} | Tel: ${c.phone}</small>
+                    <small>${c.email}</small>
                 </div>
                 <span class="badge ${c.active ? 'success' : 'danger'}">${c.active ? 'ATIVO' : 'INATIVO'}</span>
             </div>
         `).join('');
     }
     
-    // Demandas - Mostra EM ANDAMENTO e ATRASADO com checkboxes
+    // Demandas
     const demandsList = document.getElementById('demandsList');
     if (demandsList) {
         demandsList.innerHTML = DATA.demands.map(d => {
@@ -330,7 +328,7 @@ function render() {
         }).join('');
     }
     
-    // Entregas - Mostra apenas histórico (CONCLUÍDO e CANCELADO) sem edição
+    // Entregas
     const deliveriesList = document.getElementById('deliveriesList');
     if (deliveriesList) {
         deliveriesList.innerHTML = DATA.deliveries.map(d => {
@@ -348,7 +346,7 @@ function render() {
         }).join('');
     }
     
-    // Próximas entregas (Dashboard)
+    // Próximas entregas
     const nextDel = document.getElementById('nextDeliveries');
     if (nextDel) {
         const upcoming = DATA.demands.filter(d => d.status === 'EM ANDAMENTO').slice(0, 3);
@@ -364,7 +362,7 @@ function render() {
         `).join('');
     }
     
-    // Alertas (Dashboard)
+    // Alertas
     const alerts = document.getElementById('alertsList');
     if (alerts) {
         const late = DATA.demands.filter(d => d.status === 'ATRASADO');
@@ -389,44 +387,40 @@ function render() {
         `;
     }
     
-    // Usuários (apenas admin)
+    // Usuários
     const usersTable = document.getElementById('usersTable');
     if (usersTable && p.manage) {
-        const roleLabels = { admin: 'Admin', colaborador: 'Colaborador', cliente: 'Cliente' };
         usersTable.innerHTML = `
             <div class="table-header">
                 <div class="td">Nome</div>
                 <div class="td">Email</div>
                 <div class="td">Cargo</div>
-                <div class="td">Status</div>
-                <div class="td">Ações</div>
             </div>
             ${DATA.users.map(u => `
                 <div class="table-row">
                     <div class="td"><b>${u.name}</b></div>
                     <div class="td">${u.email}</div>
-                    <div class="td">${roleLabels[u.role]}</div>
-                    <div class="td"><span class="badge ${u.active ? 'success' : 'danger'}">${u.active ? 'ATIVO' : 'INATIVO'}</span></div>
                     <div class="td">
-                        <button class="btn-edit" style="padding:6px 12px; font-size:0.75rem;">Editar</button>
+                        <select class="cargo-select" onchange="changeUserRole(${u.id}, this.value)">
+                            <option value="admin" ${u.role === 'admin' ? 'selected' : ''}>Admin</option>
+                            <option value="colaborador" ${u.role === 'colaborador' ? 'selected' : ''}>Colaborador</option>
+                            <option value="cliente" ${u.role === 'cliente' ? 'selected' : ''}>Cliente</option>
+                        </select>
                     </div>
                 </div>
             `).join('')}
         `;
     }
-}
+    };
 
-// Função para concluir demanda
 window.completeDemand = function(id) {
     const demand = DATA.demands.find(d => d.id === id);
     if (!demand) return;
     
     if (confirm(`Concluir a demanda "${demand.title}"?`)) {
-        // Remove da lista de demandas
         const index = DATA.demands.findIndex(d => d.id === id);
         DATA.demands.splice(index, 1);
         
-        // Adiciona ao histórico de entregas
         DATA.deliveries.unshift({
             id: Date.now(),
             title: demand.title,
@@ -442,17 +436,14 @@ window.completeDemand = function(id) {
     }
 };
 
-// Função para cancelar demanda
 window.cancelDemand = function(id) {
     const demand = DATA.demands.find(d => d.id === id);
     if (!demand) return;
     
     if (confirm(`Cancelar a demanda "${demand.title}"?`)) {
-        // Remove da lista de demandas
         const index = DATA.demands.findIndex(d => d.id === id);
         DATA.demands.splice(index, 1);
         
-        // Adiciona ao histórico de entregas
         DATA.deliveries.unshift({
             id: Date.now(),
             title: demand.title,
@@ -502,10 +493,23 @@ function initModal() {
     const form = document.getElementById('formDemand');
     const overlay = modal?.querySelector('.modal-overlay');
     
+    const modalUser = document.getElementById('modalUser');
+    const openUser = document.getElementById('btnNewUser');
+    const closeUser = document.getElementById('closeModalUser');
+    const cancelUser = document.getElementById('btnCancelUser');
+    const formUser = document.getElementById('formUser');
+    const overlayUser = modalUser?.querySelector('.modal-overlay');
+    
     const closeModal = () => {
         if (modal) modal.classList.remove('active');
         document.body.style.overflow = '';
         if (form) form.reset();
+    };
+    
+    const closeModalUser = () => {
+        if (modalUser) modalUser.classList.remove('active');
+        document.body.style.overflow = '';
+        if (formUser) formUser.reset();
     };
     
     if (open) open.onclick = () => { modal.classList.add('active'); document.body.style.overflow = 'hidden'; };
@@ -513,13 +517,49 @@ function initModal() {
     if (cancel) cancel.onclick = closeModal;
     if (overlay) overlay.onclick = closeModal;
     
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal?.classList.contains('active')) closeModal(); });
+    if (openUser) openUser.onclick = () => { modalUser.classList.add('active'); document.body.style.overflow = 'hidden'; };
+    if (closeUser) closeUser.onclick = closeModalUser;
+    if (cancelUser) cancelUser.onclick = closeModalUser;
+    if (overlayUser) overlayUser.onclick = closeModalUser;
+    
+    document.addEventListener('keydown', (e) => { 
+        if (e.key === 'Escape') {
+            if (modal?.classList.contains('active')) closeModal();
+            if (modalUser?.classList.contains('active')) closeModalUser();
+        }
+    });
     
     if (form) {
         form.onsubmit = (e) => {
             e.preventDefault();
-            alert('✅ Demanda criada!');
+            showToast('✅ Demanda criada!', 'success');
             closeModal();
+        };
+    }
+    
+    if (formUser) {
+        formUser.onsubmit = (e) => {
+            e.preventDefault();
+            const name = document.getElementById('userName').value;
+            const email = document.getElementById('userEmail').value;
+            const role = document.getElementById('userRole').value;
+            
+            if (!name || !email || !role) {
+                showToast('❌ Preencha todos os campos', 'danger');
+                return;
+            }
+            
+            DATA.users.push({
+                id: Date.now(),
+                name: name,
+                email: email,
+                role: role,
+                active: true
+            });
+            
+            showToast('✅ Usuário criado com sucesso!', 'success');
+            render();
+            closeModalUser();
         };
     }
 }
